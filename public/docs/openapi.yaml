@@ -1,0 +1,152 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+paths:
+  /api/v1/postal_codes:
+    get:
+      summary: 'Postal codes.'
+      description: 'Get a list of cities from a country, with a bla bla bla ....'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      country_id: FR
+                      city_id: '59193'
+                      name: EMMERIN
+                      zip_code: '59320'
+                      gps_coordinates: '50.591061091, 3.005146823'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        country_id: FR
+                        city_id: '59193'
+                        name: EMMERIN
+                        zip_code: '59320'
+                        gps_coordinates: '50.591061091, 3.005146823'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: country_id
+        description: 'Optional parameter. The country ID you want the cities.'
+        required: true
+        schema:
+          type: string
+        examples:
+          omitted:
+            summary: 'When the value is omitted'
+            value: ''
+          present:
+            summary: 'When the value is present'
+            value: consequatur
+      -
+        in: path
+        name: search
+        description: 'What you are looking for. This can be a postal code (59320) or a string ("bec"). the service looks for an exact postal code OR a like city mame.'
+        example: ut
+        required: true
+        schema:
+          type: string
+  /api/healthcheck:
+    get:
+      summary: Healthcheck.
+      description: "Check that the service is up. If everything is okay, you'll get a 200 OK response.\n\nOtherwise, the request will fail with a 400 error, and a response listing the failed services."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        400:
+          description: 'Service is unhealthy'
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: down
+                  services:
+                    database: up
+                    redis: down
+                properties:
+                  status:
+                    type: string
+                    example: down
+                    description: 'The status of this API (`up` or `down`).'
+                  services:
+                    type: object
+                    example:
+                      database: up
+                      redis: down
+                    description: 'Map of each downstream service and their status (`up` or `down`).'
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: up
+                  services:
+                    database: up
+                    redis: up
+                properties:
+                  status:
+                    type: string
+                    example: up
+                    description: 'The status of this API (`up` or `down`).'
+                  services:
+                    type: object
+                    example:
+                      database: up
+                      redis: up
+                    description: 'Map of each downstream service and their status (`up` or `down`).'
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''

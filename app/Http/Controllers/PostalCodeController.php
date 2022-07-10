@@ -16,9 +16,23 @@ class PostalCodeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Postal codes.
      *
-     * @return \Illuminate\Http\Response
+     * Get a list of cities from a country, with a bla bla bla ....
+     *
+     * @urlParam country_id string The country ID you want the cities.
+     * @urlParam search required What you are looking for. This can be a postal code (59320) or a string ("bec"). the service looks for an exact postal code OR a like city mame.
+     * @response 200 scenario=success {
+     *           "data": [
+     *               {
+     *                   "country_id": "FR",
+     *                   "city_id": "59193",
+     *                   "name": "EMMERIN",
+     *                   "zip_code": "59320",
+     *                   "gps_coordinates": "50.591061091, 3.005146823"
+     *               }
+     *           ]
+     * }
      */
     public function index(Request $request)
     {
